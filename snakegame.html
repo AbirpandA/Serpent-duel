@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Serpent Duel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="start-screen">
+        <h1>Serpent Duel</h1>
+        <input type="text" id="player-name" placeholder="Enter your name" maxlength="12">
+        <div class="controls-info">
+            <p>Controls:</p>
+            <p><span class="key">W</span> Up <span class="key">S</span> Down <span class="key">A</span> Left <span class="key">D</span> Right</p>
+        </div>
+        <button onclick="startGame()">Begin Duel</button>
+    </div>
+    <div id="game-container">
+        <div id="game-hud">
+            <div class="score-container">
+                <div class="player-score">Wins: <span id="player-score">0</span></div>
+                <div class="ai-score">Losses: <span id="ai-score">0</span></div>
+            </div>
+            
+            
+            <div class="powerup-legend">
+                <div class="powerup-item">
+                    <div class="powerup-dot speed" style="background: var(--powerup-speed)"></div>
+                    <span>Speed</span>
+                    <div class="powerup-tooltip">
+                        Speed Boost: Move twice as fast for 5 seconds!
+                    </div>
+                </div>
+                <div class="powerup-item">
+                    <div class="powerup-dot shield" style="background: var(--powerup-shield)"></div>
+                    <span>Shield</span>
+                    <div class="powerup-tooltip">
+                        Shield: Become invincible for 5 seconds!
+                    </div>
+                </div>
+                <div class="powerup-item">
+                    <div class="powerup-dot ghost" style="background: var(--powerup-ghost)"></div>
+                    <span>Ghost</span>
+                    <div class="powerup-tooltip">
+                        Ghost Mode: Phase through walls for 5 seconds!
+                    </div>
+                </div>
+                <div class="powerup-item">
+                    <div class="powerup-dot reverse" style="background: var(--powerup-reverse)"></div>
+                    <span>Reverse</span>
+                    <div class="powerup-tooltip">
+                        Reverse Controls: Temporarily reverse your opponent's controls!
+                    </div>
+                </div>
+                <div class="powerup-item">
+                    <div class="powerup-dot freeze" style="background: var(--powerup-freeze)"></div>
+                    <span>Freeze</span>
+                    <div class="powerup-tooltip">
+                        Freeze: Significantly slows down your opponent!
+                    </div>
+                </div>
+                <div class="powerup-item">
+                    <div class="powerup-dot growth" style="background: var(--powerup-growth)"></div>
+                    <span>Growth</span>
+                    <div class="powerup-tooltip">
+                        Growth: Grow twice as much when collecting food for 5 seconds!
+                    </div>
+                </div>
+            </div>
+            
+            <div class="active-powerups" id="active-powerups"></div>
+            <div class="powerup-info" id="powerup-info"></div>
+        </div>
+        <canvas id="game-canvas" width="600" height="400"></canvas>
+    </div>
+    <div id="game-over-screen">
+        <h1>Game Over</h1>
+        <p id="game-over-message"></p>
+        <button onclick="resetGame()">Play Again</button>
+    </div>
+    <button id="title-button">🏆 Titles</button>
+    <div id="titles-dropdown"></div>
+
+    <script src="game.js"></script>
+</body>
+</html>
