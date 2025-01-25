@@ -1056,9 +1056,6 @@ const canvas = document.getElementById('game-canvas');
                 }
 
                 this.lastTimeCheck = currentTime;
-
-                // Log the survival time to the console for debugging
-                console.log(`Survival Time: ${this.survivalTime.toFixed(2)} seconds`);
             }
 
             loadTitles() {
@@ -1620,9 +1617,6 @@ const canvas = document.getElementById('game-canvas');
                     this.currentWinStreak = 0;
                 }
                 
-                // Update survival time if needed
-                this.survivalTime = Date.now() - this.gameStartTime;
-                
                 // Save stats
                 this.savePowerUpStats();
                 this.resetPowerUpStats();
@@ -1632,7 +1626,44 @@ const canvas = document.getElementById('game-canvas');
         let game;
         let gameLoopId;
 
+        let soundsInitialized = false;
+
+        // Function to initialize sounds
+        function initializeSounds() {
+            const backgroundMusic = document.getElementById('background-music');
+            const buttonClickSound = document.getElementById('button-click-sound');
+
+            // Set volume for background music
+            backgroundMusic.volume = 0.2; // Decrease volume to 20%
+            backgroundMusic.load(); // Load the background music
+            backgroundMusic.play().catch(error => console.error("Error playing background music:", error));
+
+            soundsInitialized = true;
+        }
+
+        // Function to play button click sound
+        function playButtonClickSound() {
+            const buttonClickSound = document.getElementById('button-click-sound');
+            buttonClickSound.volume = 0.5; // Set volume for button click sound
+            buttonClickSound.play().catch(error => console.error("Error playing button click sound:", error));
+        }
+
+        // Event listener for the "Begin Duel" button
+        document.getElementById('start-button').addEventListener('click', () => {
+            if (!soundsInitialized) {
+                console.log("Initializing sounds...");
+                initializeSounds(); // Initialize sounds on first interaction
+            }
+            startGame(); // Your existing function to start the game
+        });
+
+        // Attach the click sound to all buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', playButtonClickSound);
+        });
+
         function startGame() {
+            document.getElementById('background-music').play(); // Start background music
             const playerName = document.getElementById('player-name').value || 'Player';
             
             if (!playerName) {
@@ -1698,7 +1729,7 @@ const canvas = document.getElementById('game-canvas');
             game.updateGameTime();
 
             // Check for new titles every second
-            if (Math.floor(game.survivalTime) % 1 === 0) { // Check every second
+            if (Math.floor(game.survivalTime) % 1 === 0) {
                 game.checkForNewTitles(); // Ensure this is called
             }
 
@@ -1784,3 +1815,9 @@ const canvas = document.getElementById('game-canvas');
             const playAgainButton = document.querySelector('#game-over-screen button');
             gameOverScreen.insertBefore(resetButton, playAgainButton);
         }
+
+        document.getElementById('test-sound-button').addEventListener('click', () => {
+            const buttonClickSound = document.getElementById('button-click-sound');
+            buttonClickSound.volume = 0.5; // Set volume for button click sound
+            buttonClickSound.play().catch(error => console.error("Error playing button click sound:", error));
+        });
