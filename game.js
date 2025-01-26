@@ -1816,8 +1816,4 @@ const canvas = document.getElementById('game-canvas');
             gameOverScreen.insertBefore(resetButton, playAgainButton);
         }
 
-        document.getElementById('test-sound-button').addEventListener('click', () => {
-            const buttonClickSound = document.getElementById('button-click-sound');
-            buttonClickSound.volume = 0.5; // Set volume for button click sound
-            buttonClickSound.play().catch(error => console.error("Error playing button click sound:", error));
-        });
+        
